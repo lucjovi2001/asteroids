@@ -90,6 +90,11 @@ function animate() {
 
     player.update()
 
+    for (let i = projectiles.length - 1; i >= 0; i--) {
+        const projectile = projectiles[i]
+        projectile.update()
+    }
+
     if (keys.w.pressed) {
         player.velocity.x = Math.cos(player.rotation) * SPEED
         player.velocity.y = Math.sin(player.rotation) * SPEED
@@ -118,6 +123,18 @@ window.addEventListener('keydown', (event) => {
             console.log('Key "d" pressed')
             keys.d.pressed = true
             break
+        case 'Space':
+            console.log('Key "space" pressed')
+            projectiles.push(new Projectile({
+                position: {
+                    x: player.position.x,
+                    y: player.position.y,
+                },
+                velocity: {
+                    x: 1,
+                    y: 0,
+                }
+            }))
     }
 })
 
