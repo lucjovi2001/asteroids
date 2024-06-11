@@ -45,15 +45,17 @@ const player = new Player({
 
 const keys = {
     w: {
-        pressed: false
+        pressed: false,
     },
     a: {
-        pressed: false
+        pressed: false,
     },
     d: {
-        pressed: false
-    }
+        pressed: false,
+    },
 }
+
+const SPEED = 3
 
 function animate() {
     window.requestAnimationFrame(animate)
@@ -65,8 +67,8 @@ function animate() {
     player.velocity.x = 0
     player.velocity.y = 0
     if (keys.w.pressed) {
-        player.velocity.x = Math.cos(player.rotation)
-        player.velocity.y = Math.sin(player.rotation)
+        player.velocity.x = Math.cos(player.rotation) * SPEED
+        player.velocity.y = Math.sin(player.rotation) * SPEED
     }
     
     if (keys.d.pressed) player.rotation += 0.01
