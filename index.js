@@ -32,3 +32,7 @@ const player = new Player({
 })
 
 player.draw()
+
+window.addEventListener('keydown', (event) => {
+    console.log(event)
+})
