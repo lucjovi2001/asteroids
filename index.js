@@ -63,7 +63,11 @@ function animate() {
     player.update()
 
     player.velocity.x = 0
-    if (keys.w.pressed) player.velocity.x = 1
+    player.velocity.y = 0
+    if (keys.w.pressed) {
+        player.velocity.x = Math.cos(player.rotation)
+        player.velocity.y = Math.sin(player.rotation)
+    }
     
     if (keys.d.pressed) player.rotation += 0.01
     else if (keys.a.pressed) player.rotation -= 0.01
