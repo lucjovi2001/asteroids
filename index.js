@@ -61,10 +61,10 @@ class Projectile {
 }
 
 class Asteroid {
-    constructor({ position, velocity }) {
+    constructor({ position, velocity, radius }) {
         this.position = position
         this.velocity = velocity
-        this.radius = 50 * Math.random() + 10
+        this.radius = radius
     }
 
     draw() {
@@ -108,15 +108,48 @@ const projectiles = []
 const asteroids = []
 
 window.setInterval(() => {
-    asteroids.push(new asteroids({
+    const index = Math.floor(Math.random() * 4)
+    let x, y
+    let vx, vy // velocity of x and y
+    let radius = 50 * Math.random() + 10
+
+    switch (index) {
+        case 0: // left side of screen
+            x = 0 - radius
+            y = Math.random() * canvas.height
+            vx = 1
+            vy = 0
+            break
+        case 1: // bottom of screen
+            x = Math.random() * canvas.width
+            y = canvas.height + radius
+            vx = 0
+            vy = -1
+            break
+        case 2: // right side of screen
+            x = canvas.width + radius
+            y = Math.random() * canvas.height
+            vx = -1
+            vy = 0
+            break
+        case 3: // top of screen
+            x = Math.random() * canvas.width
+            y = 0 - radius
+            vx = 0
+            vy = 1
+            break
+    }
+
+    asteroids.push(new Asteroid({
         position: {
-            x: 0,
-            y: 0,
+            x: x,
+            y: y,
         },
         velocity: {
-            x: 0,
-            y: 0,
-        }
+            x: vx,
+            y: vy,
+        },
+        radius,
     }))
 }, 3000)
 
@@ -132,12 +165,28 @@ function animate() {
         projectile.update()
 
         // garbage collection for projectiles
-        if (projectile.position.x + projectile.radius < 0 ||
+        if (
+            projectile.position.x + projectile.radius < 0 ||
             projectile.position.x - projectile.radius > canvas.width ||
             projectile.position.y - projectile.radius > canvas.height ||
             projectile.position.y + projectile.radius < 0
         ) {
             projectiles.splice(i, 1)
+        }
+    }
+
+    // asteroid management
+    for (let i = asteroids.length - 1; i >= 0; i--) {
+        const asteroid = asteroids[i]
+        asteroid.update()
+
+        if (
+            asteroid.position.x + asteroid.radius < 0 ||
+            asteroid.position.x - asteroid.radius > canvas.width ||
+            asteroid.position.y - asteroid.radius > canvas.height ||
+            asteroid.position.y + asteroid.radius < 0
+        ) {
+            asteroids.splice(i, 1)
         }
     }
 
@@ -158,19 +207,15 @@ animate()
 window.addEventListener('keydown', (event) => {
     switch (event.code) {
         case 'KeyW':
-            console.log('Key "w" pressed')
             keys.w.pressed = true
             break
         case 'KeyA':
-            console.log('Key "a" pressed')
             keys.a.pressed = true
             break
         case 'KeyD':
-            console.log('Key "d" pressed')
             keys.d.pressed = true
             break
         case 'Space':
-            console.log('Key "space" pressed')
             projectiles.push(new Projectile({
                 position: {
                     x: player.position.x + Math.cos(player.rotation) * 30,
@@ -188,15 +233,12 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
     switch (event.code) {
         case 'KeyW':
-            console.log('Key "w" released')
             keys.w.pressed = false
             break
         case 'KeyA':
-            console.log('Key "a" released')
             keys.a.pressed = false
             break
         case 'KeyD':
-            console.log('Key "d" released')
             keys.d.pressed = false
             break
     }
