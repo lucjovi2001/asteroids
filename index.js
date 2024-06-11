@@ -131,8 +131,8 @@ window.addEventListener('keydown', (event) => {
                     y: player.position.y + Math.sin(player.rotation) * 30,
                 },
                 velocity: {
-                    x: 1,
-                    y: 0,
+                    x: Math.cos(player.rotation),
+                    y: Math.sin(player.rotation),
                 }
             }))
     }
