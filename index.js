@@ -153,6 +153,19 @@ window.setInterval(() => {
     }))
 }, 3000)
 
+function circleCollision(circle1, circle2) {
+    const xDifference = circle2.position.x - circle1.position.x
+    const yDifference = circle2.position.y - circle1.position.y
+
+    const distance = Math.sqrt(xDifference * xDifference + yDifference * yDifference)
+
+    if ( distance <= circle1.radius + circle2.radius) {
+        return true
+    }
+
+    return false
+}
+
 function animate() {
     window.requestAnimationFrame(animate)
     context.fillStyle = 'black'
@@ -180,6 +193,15 @@ function animate() {
         const asteroid = asteroids[i]
         asteroid.update()
 
+        for (let i = projectiles.length - 1; i >= 0; i--) {
+            const projectile = projectiles[i]
+
+            if (circleCollision(asteroid, projectile)) {
+                
+            }
+        }
+
+        // garbage collection for asteroids
         if (
             asteroid.position.x + asteroid.radius < 0 ||
             asteroid.position.x - asteroid.radius > canvas.width ||
