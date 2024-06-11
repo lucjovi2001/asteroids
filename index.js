@@ -230,7 +230,7 @@ function isPointOnLineSegment(x, y, start, end) {
 }
 
 function animate() {
-    window.requestAnimationFrame(animate)
+    const animationId = window.requestAnimationFrame(animate)
     context.fillStyle = 'black'
     context.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -257,7 +257,7 @@ function animate() {
         asteroid.update()
 
         if (circleTriangleCollision(asteroid, player.getVertices())) {
-            console.log("GAME OVER")
+            window.cancelAnimationFrame(animationId)
         }
 
         // garbage collection for asteroids
