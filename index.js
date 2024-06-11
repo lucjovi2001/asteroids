@@ -57,6 +57,7 @@ const keys = {
 
 const SPEED = 5
 const ROTATIONAL_SPEED = 0.075
+const FRICTION = 0.97
 
 function animate() {
     window.requestAnimationFrame(animate)
@@ -65,11 +66,12 @@ function animate() {
 
     player.update()
 
-    player.velocity.x = 0
-    player.velocity.y = 0
     if (keys.w.pressed) {
         player.velocity.x = Math.cos(player.rotation) * SPEED
         player.velocity.y = Math.sin(player.rotation) * SPEED
+    } else if (!keys.w.pressed) {
+        player.velocity.x *= FRICTION
+        player.velocity.y *= FRICTION
     }
     
     if (keys.d.pressed) player.rotation += ROTATIONAL_SPEED
