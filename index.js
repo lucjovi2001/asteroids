@@ -80,6 +80,7 @@ const keys = {
 const SPEED = 5
 const ROTATIONAL_SPEED = 0.075
 const FRICTION = 0.95
+const PROJECTILE_SPEED = 5
 
 const projectiles = []
 
@@ -131,8 +132,8 @@ window.addEventListener('keydown', (event) => {
                     y: player.position.y + Math.sin(player.rotation) * 30,
                 },
                 velocity: {
-                    x: Math.cos(player.rotation),
-                    y: Math.sin(player.rotation),
+                    x: Math.cos(player.rotation) * PROJECTILE_SPEED,
+                    y: Math.sin(player.rotation) * PROJECTILE_SPEED,
                 }
             }))
     }
