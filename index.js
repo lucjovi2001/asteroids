@@ -80,7 +80,7 @@ const keys = {
 const SPEED = 5
 const ROTATIONAL_SPEED = 0.075
 const FRICTION = 0.95
-const PROJECTILE_SPEED = 5
+const PROJECTILE_SPEED = 7
 
 const projectiles = []
 
