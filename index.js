@@ -56,7 +56,7 @@ const keys = {
 }
 
 const SPEED = 5
-const ROTATIONAL_SPEED = 0.05
+const ROTATIONAL_SPEED = 0.075
 
 function animate() {
     window.requestAnimationFrame(animate)
