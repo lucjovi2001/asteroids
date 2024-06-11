@@ -55,7 +55,7 @@ const keys = {
     },
 }
 
-const SPEED = 3
+const SPEED = 5
 const ROTATIONAL_SPEED = 0.05
 
 function animate() {
