@@ -38,6 +38,28 @@ class Player {
     }
 }
 
+class Projectile {
+    constructor({ position, velocity }) {
+        this.position = position
+        this.velocity = velocity
+        this.radius = 5
+    }
+
+    draw() {
+        context.beginPath()
+        context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false)
+        context.closePath()
+        context.fillStyle = 'white'
+        context.fill()
+    }
+
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+    }
+}
+
 const player = new Player({
     position: { x: canvas.width / 2, y: canvas.height / 2 },
     velocity: { x: 0, y: 0 },
@@ -58,6 +80,8 @@ const keys = {
 const SPEED = 5
 const ROTATIONAL_SPEED = 0.075
 const FRICTION = 0.95
+
+const projectiles = []
 
 function animate() {
     window.requestAnimationFrame(animate)
