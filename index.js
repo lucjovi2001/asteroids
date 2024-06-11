@@ -56,6 +56,7 @@ const keys = {
 }
 
 const SPEED = 3
+const ROTATIONAL_SPEED = 0.05
 
 function animate() {
     window.requestAnimationFrame(animate)
@@ -71,8 +72,8 @@ function animate() {
         player.velocity.y = Math.sin(player.rotation) * SPEED
     }
     
-    if (keys.d.pressed) player.rotation += 0.01
-    else if (keys.a.pressed) player.rotation -= 0.01
+    if (keys.d.pressed) player.rotation += ROTATIONAL_SPEED
+    else if (keys.a.pressed) player.rotation -= ROTATIONAL_SPEED
 }
 
 animate()
