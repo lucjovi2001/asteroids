@@ -193,14 +193,6 @@ function animate() {
         const asteroid = asteroids[i]
         asteroid.update()
 
-        for (let i = projectiles.length - 1; i >= 0; i--) {
-            const projectile = projectiles[i]
-
-            if (circleCollision(asteroid, projectile)) {
-                
-            }
-        }
-
         // garbage collection for asteroids
         if (
             asteroid.position.x + asteroid.radius < 0 ||
@@ -209,6 +201,15 @@ function animate() {
             asteroid.position.y + asteroid.radius < 0
         ) {
             asteroids.splice(i, 1)
+        }
+
+        for (let j = projectiles.length - 1; j >= 0; j--) {
+            const projectile = projectiles[j]
+
+            if (circleCollision(asteroid, projectile)) {
+                asteroids.splice(i, 1)
+                projectiles.splice(j, 1)
+            }
         }
     }
 
