@@ -127,8 +127,8 @@ window.addEventListener('keydown', (event) => {
             console.log('Key "space" pressed')
             projectiles.push(new Projectile({
                 position: {
-                    x: player.position.x,
-                    y: player.position.y,
+                    x: player.position.x + Math.cos(player.rotation) * 30,
+                    y: player.position.y + Math.sin(player.rotation) * 30,
                 },
                 velocity: {
                     x: 1,
